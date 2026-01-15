@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #f8f9fa;
+  --ink: #1a1a2e;
+  --muted: rgba(0, 0, 0, 0.1);
+  --muted2: rgba(0, 0, 0, 0.05);
+  --accent: #6c5ce7;
+  --glass: rgba(255, 255, 255, 0.85);
+  --shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f9f9f9;
+  font-family: 'Fira Sans', sans-serif;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Visually hidden - accessible to screen readers only */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Document Card - floating document effect */
+.document-card {
+  background: white;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05), 0 2px 10px rgba(0, 0, 0, 0.025);
+  overflow: hidden;
+  margin: 0 20px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Page Header */
+.page-header {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.header-logo {
+  width: 100%;
+  height: auto;
+}
+
+/* Download Section */
+.download-section {
+  width: 100%;
+  max-width: 1180px;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Page Footer */
+.page-footer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 40px;
+  padding: 20px 30px 40px;
+}
+
+.footer-left {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+}
+
+.footer-description {
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  margin: 0 0 15px 0;
+}
+
+.arrow-decoration {
+  width: 100px;
+  height: 50px;
+  align-self: flex-end;
+}
+
+.footer-right {
+  flex: 1;
+}
+
+.ring-legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.ring-card {
+  padding: 12px 15px;
+  border-radius: 4px;
+}
+
+.ring-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ring-card-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a2e;
+}
+
+.ring-card-time {
+  font-size: 12px;
+  color: #666;
+}
+
+.ring-card-desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #333;
+  margin: 0;
+}
+
+/* Ring card colors matching wheel */
+.ring-card.ring-1 {
+  background: hsl(256, 35%, 57%, 0.12);
+  border-left: 40px solid hsl(265, 56%, 33%, 1);
+}
+
+.ring-card.ring-2 {
+  background: hsl(256, 35%, 57%, 0.12);
+  border-left: 40px solid hsl(265, 56%, 33%, 0.75);
+}
+
+.ring-card.ring-3 {
+  background: hsl(256, 35%, 57%, 0.12);
+  border-left: 40px solid hsl(265, 56%, 33%, 0.5);
+}
+
+.ring-card.ring-4 {
+  background: hsl(256, 35%, 57%, 0.12);
+  border-left: 40px solid hsl(265, 56%, 33%, 0.25);
+}
+
+/* Focus styles for keyboard navigation (WCAG) */
+.download-button:focus {
+  outline: 3px solid hsl(265, 70%, 50%);
+  outline-offset: 2px;
+}
+
+.download-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.download-button {
+  position: relative;
+  left: -4px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: hsl(265, 56%, 33%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(75, 37, 130, 0.3);
+}
+
+.download-button:hover {
+  background: hsl(265, 56%, 40%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(75, 37, 130, 0.4);
+}
+
+.download-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(75, 37, 130, 0.3);
+}
+
+.wrap {
+  position: relative;
+  width: min(1180px, 98vw);
+  background: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Base Styles */
+.grid circle {
+  stroke: var(--muted2);
+  stroke-dasharray: 4, 4;
+}
+
+.month-arc {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.month-arc,
+.ring-segment {
+  stroke: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.month-arc.is-dimmed,
+.ring-segment.is-dimmed {
+  opacity: 0.15;
+  filter: grayscale(0.8);
+}
+
+.month-arc.is-active,
+.ring-segment.is-active {
+  filter: brightness(1.2);
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1px;
+}
+
+.week-segment {
+  pointer-events: all;
+  transition: all 0.3s ease;
+}
+
+.week-segment.is-current {
+  opacity: 1;
+}
+
+.week-segment.is-period-active {
+  fill: hsl(265, 56%, 33%, 1) !important;
+  opacity: 1;
+}
+
+.label {
+  font-size: 14px;
+  fill: var(--ink);
+  font-weight: 400;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+.label.month {
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.label.month.is-active {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.center-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  fill: var(--ink);
+}
+
+/* Markers */
+.marker-group {
+  cursor: pointer;
+}
+
+.marker-shape {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: filter 0.3s ease;
+}
+
+.marker-group:hover .marker-shape {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Event Groups (Outside Labels) */
+.event-group {
+  cursor: pointer;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.event-label-ext {
+  /* font-size now controlled via JavaScript config */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.slice-trigger {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.event-label-ext tspan {
+  pointer-events: all;
+}
+
+.event-group.is-dimmed {
+  opacity: 0.15;
+  filter: grayscale(0.5);
+}
+
+.event-group.is-dimmed .event-label-ext {
+  fill: #636e72;
+}
+
+.event-group.is-active-slice .event-label-ext,
+.event-group.is-active .event-label-ext {
+  font-weight: 700;
+  /* font-size now controlled via JavaScript config */
+}
+
+.connector-line {
+  pointer-events: none;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  /* Increased visibility from 0.3 */
+}
+
+/* Custom Tooltip */
+.custom-tooltip {
+  position: absolute;
+  background: rgba(26, 26, 46, 0.95);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.4;
+}
+
+/* Info Tooltip Mockup */
+.info-overlay {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 240px;
+  pointer-events: none;
+}
+
+.info-card {
+  background: white;
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+}
+
+/* ============================================
+   WCAG AA Mode Overrides
+   Increases contrast while preserving H=265
+   ============================================ */
+
+/* Base state: event labels with higher contrast */
+.wcag-mode .event-label-ext {
+  fill: hsl(265, 45%, 15%) !important;
+}
+
+.wcag-mode .event-label-ext tspan {
+  fill: hsl(265, 45%, 15%) !important;
+}
+
+/* Base state: connector lines more visible */
+.wcag-mode .connector-line {
+  opacity: 0.9 !important;
+}
+
+/* Base state: week labels more visible - no !important to allow JS override for active periods */
+.wcag-mode .week-label {
+  fill: rgba(0, 0, 0, 0.75);
+}
+
+.wcag-mode .week-label.is-current {
+  fill: #fff;
+}
+
+/* Dimmed elements: increase opacity for better visibility */
+.wcag-mode .month-arc.is-dimmed,
+.wcag-mode .ring-segment.is-dimmed {
+  opacity: 0.4;
+  filter: grayscale(0.3);
+}
+
+.wcag-mode .event-group.is-dimmed {
+  opacity: 0.45;
+  filter: grayscale(0.15);
+}
+
+.wcag-mode .event-group.is-dimmed .event-label-ext {
+  fill: hsl(265, 30%, 35%) !important;
+}
+
+/* Period segments when dimmed */
+.wcag-mode .period-segment.is-dimmed {
+  opacity: 0.5;
+}
+
+/* Labels: ensure sufficient contrast */
+.wcag-mode .label.month {
+  fill: hsl(265, 50%, 20%) !important;
+}
+
+.wcag-mode .label.month.is-dimmed {
+  fill: hsl(265, 30%, 40%);
+  opacity: 0.75;
+}

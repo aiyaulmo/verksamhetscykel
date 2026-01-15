@@ -1,0 +1,301 @@
+{
+  "config": {
+    "_comment_canvas": "=== CANVAS & OFFSET ===",
+    "year": 2026,
+    "canvasWidth": 1260,
+    "canvasHeight": 820,
+    "centerOffsetX": -12,
+    "centerOffsetY": 0,
+    "_comment_rings": "=== RINGS ===",
+    "ringInner": 120,
+    "ringOuter": 300,
+    "ringCount": 4,
+    "gridLineWidth": 2.5,
+    "_comment_weeks": "=== WEEKS ===",
+    "weekRingThickness": 16,
+    "weekSeparatorWidth": 0.75,
+    "periodDividerWeeks": [
+      3,
+      13,
+      23,
+      35,
+      45
+    ],
+    "periodColors": [
+      "hsl(265, 56%, 33%, 0.75)",
+      "hsl(265, 56%, 33%, 1)",
+      "hsl(265, 56%, 33%, 0)",
+      "hsl(265, 56%, 33%, 0.25)",
+      "hsl(265, 56%, 33%, 0.5)"
+    ],
+    "_comment_months": "=== MONTHS ===",
+    "monthBandR0": 320,
+    "monthBandR1": 350,
+    "periodRingR0": 352,
+    "periodRingR1": 358,
+    "outerLabelR": 360,
+    "_comment_distances": "=== DISTANCES FROM RINGS ===",
+    "labelR": 550,
+    "labelWrapWidth": 180,
+    "columnGapLeft": 600,
+    "columnGapRight": 450,
+    "labelVerticalSpacingLeft": 100,
+    "labelVerticalSpacingRight": 55,
+    "connectorElbowRadius": 380,
+    "jd_connectorCurveFactor": 0.9,
+    "maso_connectorCurveFactor": 0.25,
+    "fman_connectorCurveFactor": 0.5,
+    "jj_connectorCurveFactor": 0.6,
+    "connectorLineWidth": 1.5,
+    "_comment_markers": "=== MARKERS ===",
+    "markerBaseSize": 9,
+    "markerHoverScale": 1.15,
+    "_comment_text": "=== TEXT ===",
+    "centerText": "Vision & strategi",
+    "centerTextFontSize": 26,
+    "centerTextLineHeight": 30,
+    "centerTextOffsetY": 8,
+    "monthLabelFontSize": 10,
+    "monthLabelPadding": 2,
+    "monthLabelTextTransform": "lowercase",
+    "weekLabelFontSize": 8,
+    "eventLabelFontSize": 14,
+    "eventLabelHoverFontSize": 15,
+    "_comment_colors": "=== COLORS ===",
+    "centerTextColor": "hsl(265, 56%, 20%, 1)",
+    "monthLabelColor": "hsl(265, 56%, 33%, 0.75)",
+    "eventLabelColor": "hsl(265, 56%, 10%, 1)",
+    "currentWeekColor": "#007B3C",
+    "weekSeparatorColor": "rgba(255,255,255,1)",
+    "monthRingColor": "hsl(265, 56%, 33%, 0.10)",
+    "weekRingColor": "hsl(265, 56%, 33%, 0.15)",
+    "ringColors": [
+      "hsl(265, 56%, 33%, 1)",
+      "hsl(265, 56%, 33%, 0.75)",
+      "hsl(265, 56%, 33%, 0.5)",
+      "hsl(265, 56%, 33%, 0.25)"
+    ]
+  },
+  "typeStyle": {
+    "beslut": {
+      "fill": "#008BD2",
+      "shape": "circle"
+    },
+    "omvarldsanalys": {
+      "fill": "#ff9f43",
+      "shape": "eye"
+    },
+    "inlamning": {
+      "fill": "#E50075",
+      "shape": "diamond"
+    },
+    "dialog_enskild": {
+      "fill": "#FFDD00",
+      "shape": "pentagon"
+    },
+    "dialog_gemensam": {
+      "fill": "#95C11E",
+      "shape": "triangle"
+    }
+  },
+  "events": [
+    {
+      "date": "2026-01-25",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "HDa verksamhetsplan inkl. budget och planerad produktion",
+      "placering": "center",
+      "id": "ev_0"
+    },
+    {
+      "date": "2026-01-28",
+      "ring": "uppfoljning_och_analys",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Årsbokslut",
+      "placering": "center",
+      "id": "ev_1"
+    },
+    {
+      "date": "2026-02-05",
+      "ring": "uppfoljning_och_analys",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Verksamhetsberättelse",
+      "placering": "center",
+      "id": "ev_2"
+    },
+    {
+      "date": "2026-02-12",
+      "ring": "uppfoljning_och_analys",
+      "ring_2": null,
+      "type": "dialog_gemensam",
+      "label": "Verksamhetsdialoger gemensamma",
+      "placering": "center",
+      "id": "ev_3"
+    },
+    {
+      "date": "2026-02-20",
+      "ring": "uppfoljning_och_analys",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "Årsredovisning",
+      "placering": "center",
+      "id": "ev_4"
+    },
+    {
+      "date": "2026-02-22",
+      "ring": "langtidsplanering",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "Budgetunderlag",
+      "placering": "center",
+      "id": "ev_5"
+    },
+    {
+      "date": "2026-03-19",
+      "ring": "planering",
+      "ring_2": "langtidsplanering",
+      "type": "beslut",
+      "label": "Inriktningsverksamhetsplan ver. 1",
+      "placering": "linje",
+      "id": "ev_6"
+    },
+    {
+      "date": "2026-04-10",
+      "ring": "langtidsplanering",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "Verksamhetsberättelse HDa (inkl verksamhetens VB’s som bilagor)",
+      "placering": "center",
+      "id": "ev_7"
+    },
+    {
+      "date": "2026-04-11",
+      "ring": "uppfoljning_och_analys",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "Kvartalsbokslut VT",
+      "placering": "center",
+      "id": "ev_8"
+    },
+    {
+      "date": "2026-04-15",
+      "ring": "genomforande_och_uppfoljning",
+      "ring_2": null,
+      "type": "dialog_enskild",
+      "label": "Verksamhetsdialoger enskilda",
+      "placering": "center",
+      "id": "ev_9"
+    },
+    {
+      "date": "2026-05-15",
+      "ring": "langtidsplanering",
+      "ring_2": "planering",
+      "type": "omvarldsanalys",
+      "label": "Omvärldsanalys",
+      "placering": "linje",
+      "id": "ev_10"
+    },
+    {
+      "date": "2026-05-20",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Verksamhetsplan och budget",
+      "placering": "center",
+      "id": "ev_11"
+    },
+    {
+      "date": "2026-06-14",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "beslut",
+      "label": "Strategiska risker kommande år",
+      "placering": "center",
+      "id": "ev_12"
+    },
+    {
+      "date": "2026-06-18",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "dialog_gemensam",
+      "label": "Verksamhetsdialoger gemensamma",
+      "placering": "center",
+      "id": "ev_13"
+    },
+    {
+      "date": "2026-07-08",
+      "ring": "genomforande_och_uppfoljning",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Halvårsbokslut",
+      "placering": "center",
+      "id": "ev_14"
+    },
+    {
+      "date": "2026-08-31",
+      "ring": "genomforande_och_uppfoljning",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Prognos",
+      "placering": "center",
+      "id": "ev_15"
+    },
+    {
+      "date": "2026-09-15",
+      "ring": "genomforande_och_uppfoljning",
+      "ring_2": null,
+      "type": "dialog_enskild",
+      "label": "Verksamhetsdialoger enskilda",
+      "placering": "center",
+      "id": "ev_16"
+    },
+    {
+      "date": "2026-10-15",
+      "ring": "planering",
+      "ring_2": "langtidsplanering",
+      "type": "beslut",
+      "label": "Inriktningsverksamhetsplan ver. 1",
+      "placering": "linje",
+      "id": "ev_17"
+    },
+    {
+      "date": "2026-10-17",
+      "ring": "genomforande_och_uppfoljning",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Kvartalsbokslut HT",
+      "placering": "center",
+      "id": "ev_18"
+    },
+    {
+      "date": "2026-10-22",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Verksamhetsplan och budget",
+      "placering": "center",
+      "id": "ev_19"
+    },
+    {
+      "date": "2026-11-15",
+      "ring": "langtidsplanering",
+      "ring_2": null,
+      "type": "dialog_gemensam",
+      "label": "Verksamhetsdialoger gemensamma",
+      "placering": "center",
+      "id": "ev_20"
+    },
+    {
+      "date": "2026-11-30",
+      "ring": "planering",
+      "ring_2": null,
+      "type": "inlamning",
+      "label": "Verksamhetsplan inkl. budget och planerad produktion (institutioner/verksamhetsstöd)",
+      "placering": "center",
+      "id": "ev_21"
+    }
+  ]
+}

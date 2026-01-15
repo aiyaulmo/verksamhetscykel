@@ -1,0 +1,32 @@
+# Python
+venv/
+__pycache__/
+*.py
+*.pyc
+*.pyo
+.Python
+pip-log.txt
+
+# Shell scripts
+*.sh
+
+# Backups
+_backups_/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated images (keep header.svg)
+*.png
+
+# Logs
+*.log
