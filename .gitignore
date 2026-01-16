@@ -9,6 +9,7 @@ pip-log.txt
 
 # Data files
 events.xlsx
+events_v2.xlsx
 
 # Shell scripts
 *.sh
