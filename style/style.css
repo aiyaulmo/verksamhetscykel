@@ -451,3 +451,54 @@ svg {
   fill: hsl(265, 30%, 40%);
   opacity: 0.75;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .document-card {
+    margin: 0;
+    padding: 15px;
+    /* Reduced padding */
+    width: 100%;
+    border-radius: 0;
+    /* Full bleed on mobile */
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  /* Stack footer content */
+  .page-footer {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* Full width for footer sections */
+  .footer-left {
+    flex: 0 0 auto;
+    width: 100%;
+    padding-right: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Hide arrow on mobile as the layout changes */
+  .arrow-decoration {
+    display: none;
+  }
+
+  .footer-right {
+    width: 100%;
+  }
+
+  /* Stack ring cards */
+  .ring-legend-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .download-section {
+    padding: 20px;
+  }
+}
