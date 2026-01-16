@@ -214,11 +214,56 @@ async function initWheel() {
   const currentWeekVal = d3.timeFormat("%V")(nowVal);
   const isCurrentYear = nowVal.getFullYear() === year;
 
-  for (let w = 1; w <= 52; w++) {
-    const startW = new Date(year, 0, (w - 1) * 7 + 1);
-    const endW = new Date(year, 0, w * 7 + 1);
+  // Helper: Get ISO week date range clipped to year
+  function getIsoWeekRange(year, week) {
+    // Jan 4th is always in week 1 per ISO-8601
+    const d = new Date(year, 0, 4);
+    const day = d.getDay() || 7; // Mon=1, Sun=7
+    const week1Monday = new Date(d);
+    week1Monday.setDate(d.getDate() - day + 1);
+
+    const weekMonday = new Date(week1Monday);
+    weekMonday.setDate(week1Monday.getDate() + (week - 1) * 7);
+
+    // Clip start to Jan 1
+    const jan1 = new Date(year, 0, 1);
+    const start = weekMonday < jan1 ? jan1 : weekMonday;
+
+    // End is Sunday
+    const weekSunday = new Date(weekMonday);
+    weekSunday.setDate(weekMonday.getDate() + 6);
+
+    // Clip end to Dec 31
+    const dec31 = new Date(year, 11, 31);
+    const end = weekSunday > dec31 ? dec31 : weekSunday;
+
+    return { start, end };
+  }
+
+  // 2026 has 53 weeks (starts on Thursday)
+  const totalWeeks = (year === 2026) ? 53 : 52;
+
+  for (let w = 1; w <= totalWeeks; w++) {
+    const { start: startW, end: endW } = getIsoWeekRange(year, w);
+
+    // Skip if week is entirely out of bounds (shouldn't happen with clipping)
+    if (startW > endW) continue;
+
     const startA = angleScale(startW) + Math.PI / 2;
-    const endA = angleScale(endW) + Math.PI / 2;
+    // For the end angle, we want the END of the day (23:59:59) or effectively the START of the next day
+    // The previous naive logic used w*7+1 which is effectively the start of the next period.
+    // So we should use endW + 1 day for the angle calculation to close the gap?
+    // Actually angleScale usually maps timestamps. 
+    // Let's use endW set to 23:59:59 or add 1 day to date object.
+    const endWPlus1 = new Date(endW);
+    endWPlus1.setDate(endW.getDate() + 1);
+    endWPlus1.setHours(0, 0, 0, 0);
+
+    // Special case: if endW is Dec 31, endWPlus1 is Jan 1 next year. 
+    // angleScale might handle it if domain is correctly set. 
+    // The scale domain is typically [Jan 1, Dec 31]. 
+    // If it goes to Jan 1 next year, it returns 2PI (or equivalent).
+    const endA = angleScale(endWPlus1) + Math.PI / 2;
 
     const isCurrent = isCurrentYear && +currentWeekVal === w;
 
@@ -232,11 +277,12 @@ async function initWheel() {
       .append("title")
       .text(`Vecka ${w}`);
 
-    // Week number text
+    // Week number text placement
     const midA = (startA + endA) / 2 - Math.PI / 2;
     const tx = ((weekBandR0 + weekBandR1) / 2) * Math.cos(midA);
     const ty = ((weekBandR0 + weekBandR1) / 2) * Math.sin(midA);
     const weekFontSize = config.weekLabelFontSize ?? 7;
+
     gLabels.append("text")
       .attr("x", tx)
       .attr("y", ty)
@@ -265,9 +311,13 @@ async function initWheel() {
     const startWeek = periodDividerWeeks[t];
     const endWeek = periodDividerWeeks[(t + 1) % numPeriods];
 
-    // Calculate angles
-    const startDate = new Date(year, 0, startWeek * 7 + 1);
-    const endDate = new Date(year, 0, endWeek * 7 + 1);
+    // Calculate angles using ISO week starts
+    const startDate = getIsoWeekRange(year, startWeek).start;
+    const endDate = getIsoWeekRange(year, endWeek).start;
+
+    // If endWeek is 1 (or small), endDate is Jan 1. 
+    // This allows the wrapping logic (end < start) below to work correctly.
+
     let startAngle = angleScale(startDate) + Math.PI / 2;
     let endAngle = angleScale(endDate) + Math.PI / 2;
 
@@ -656,6 +706,9 @@ async function initWheel() {
         // Store hovered event for potential use
         state.hoveredEvent = ev.id;
 
+        // Update center info with event details
+        updateCenterInfo(ev);
+
         // Dim all others, highlight this one
         gMarkers.selectAll(".event-group").classed("is-dimmed", true);
         d3.select(this).classed("is-dimmed", false).classed("is-active", true);
@@ -679,6 +732,9 @@ async function initWheel() {
       })
       .on("mouseout", function () {
         state.hoveredEvent = null;
+
+        // Restore default center info
+        updateCenterInfo(null);
 
         // Reset connector
         d3.select(this).select(".connector-halo").attr("opacity", 0);
@@ -831,29 +887,139 @@ async function initWheel() {
   // Helper: Get active weeks from period indices
   function getActiveWeeksFromPeriods(activePeriodIndices) {
     const activeWeeks = new Set();
-    gPeriodRing.selectAll(".period-segment").each(function (d, i) {
-      if (activePeriodIndices.has(i)) {
-        const sw = +d3.select(this).attr("data-start-week");
-        const ew = +d3.select(this).attr("data-end-week");
-        const wraps = d3.select(this).attr("data-wraps") === "true";
+    const totalWeeks = (config.year === 2026) ? 53 : 52;
+    const dividers = config.periodDividerWeeks;
+    const numPeriods = dividers.length;
 
-        for (let w = 1; w <= 52; w++) {
-          let isIn;
-          if (wraps) isIn = (w > sw || w <= ew);
-          else isIn = (w > sw && w <= ew);
-          if (isIn) activeWeeks.add(w);
+    activePeriodIndices.forEach(idx => {
+      // Calculate range for this period index (idx)
+      const sw = dividers[idx];
+      const ew = dividers[(idx + 1) % numPeriods];
+
+      // Determine if it wraps (end is smaller or equal to start)
+      const wraps = (ew <= sw);
+
+      for (let w = 1; w <= totalWeeks; w++) {
+        let isIn = false;
+        // Logic: Inclusive of Start, Exclusive of End [sw, ew)
+        if (wraps) {
+          // e.g. sw=45, ew=3 -> Includes 45, 46... totalWeeks, 1, 2
+          if (w >= sw || w < ew) isIn = true;
+        } else {
+          // e.g. sw=3, ew=13 -> Includes 3, 4... 12
+          if (w >= sw && w < ew) isIn = true;
         }
+
+        if (isIn) activeWeeks.add(w);
       }
     });
+
     return activeWeeks;
   }
 
-  // Keep refreshPeriodHighlights as alias for backwards compatibility with hover
-  function refreshPeriodHighlights() {
-    refreshHighlights();
+
+
+  // --- Helper: Calculate Workdays (Mon-Fri) ---
+  function getWorkdaysBetween(startDate, endDate) {
+    let count = 0;
+    const curDate = new Date(startDate);
+    while (curDate <= endDate) {
+      const dayOfWeek = curDate.getDay();
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) count++;
+      curDate.setDate(curDate.getDate() + 1);
+    }
+    return count;
   }
+
+  // --- Helper: Update Center Info ---
+  // --- Helper: Update Center Info ---
+  function updateCenterInfo(ev) {
+    // 1. Handle transitions for existing elements (Cross-fade)
+
+    // Default title: fade in/out
+    const centerLabels = gCenter.selectAll(".center-label");
+    if (!ev) {
+      centerLabels.transition().duration(300).style("opacity", 1);
+    } else {
+      centerLabels.transition().duration(200).style("opacity", 0);
+    }
+
+    // Existing info: mark as exiting and fade out
+    gCenter.selectAll(".center-info:not(.exiting)")
+      .classed("exiting", true) // Mark to avoid re-selecting
+      .transition().duration(200)
+      .style("opacity", 0)
+      .remove();
+
+    if (!ev) return;
+
+    // 2. Create New Info
+    const infoGroup = gCenter.append("text")
+      .attr("class", "center-info")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("y", 0) // Centered at 0
+      .style("opacity", 0); // Start invisible for fade-in
+
+    // Fade in
+    infoGroup.transition().duration(300).style("opacity", 1);
+
+    // Line 1: Date (Upper)
+    // Position: Above center
+    const dateStr = ev.dateObj.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric' });
+    infoGroup.append("tspan")
+      .attr("x", 0)
+      .attr("y", "-1.4em")
+      .style("font-size", "16px")
+      .style("font-weight", "600")
+      .style("letter-spacing", "0.05em")
+      .style("fill", "#666")
+      .text(dateStr.toUpperCase());
+
+    // Line 2: Week & Weekday (Center)
+    // Position: At center
+    const weekNum = d3.timeFormat("%V")(ev.dateObj);
+    const weekday = ev.dateObj.toLocaleDateString('sv-SE', { weekday: 'long' });
+    const capitalizedWeekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+    infoGroup.append("tspan")
+      .attr("x", 0)
+      .attr("y", "0.2em")
+      .style("font-size", "14px")
+      .style("font-weight", "500")
+      .style("fill", "#555")
+      .text(`Vecka ${weekNum} • ${capitalizedWeekday}`);
+
+    // Line 3: Workdays Left (Lower)
+    // Position: Below center
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const targetDate = new Date(ev.dateObj);
+    targetDate.setHours(0, 0, 0, 0);
+
+    let daysText = "";
+    if (targetDate < today) {
+      daysText = "Passerad";
+    } else if (targetDate.getTime() === today.getTime()) {
+      daysText = "Idag";
+    } else {
+      const workdays = getWorkdaysBetween(today, targetDate);
+      daysText = `${workdays} arbetsdagar kvar`;
+    }
+
+    infoGroup.append("tspan")
+      .attr("x", 0)
+      .attr("y", "1.8em")
+      .style("font-size", "14px")
+      .style("font-weight", "700")
+      .style("fill", "#555") // Neutral color
+      .text(daysText);
+  }
+
   // --- Reset Button Handler ---
   const resetBtn = document.getElementById('reset-btn');
+
+
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
       state.clickedMonths.clear();
