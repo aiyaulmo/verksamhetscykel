@@ -130,55 +130,7 @@ async function initWheel() {
         .text(i === 0 ? word + " &" : word);
     });
 
-    // --- Reset Button (invisible circle in center) ---
-    const resetText = gCenter.append("text")
-      .attr("y", centerTextOffsetY)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .attr("class", "reset-label")
-      .style("font-family", "'Fira Sans', sans-serif")
-      .style("font-size", `${centerFontSize}px`)
-      .style("font-weight", "700")
-      .style("fill", centerTextColor)
-      .style("opacity", 0)
-      .style("pointer-events", "none")
-      .text("Återställ cykel");
 
-    gCenter.append("circle")
-      .attr("r", ringInner - 5)
-      .attr("fill", "transparent")
-      .attr("class", "reset-button")
-      .style("cursor", "default")
-      .on("mouseover", function () {
-        // Only show reset if there are selections
-        const hasSelections = state.clickedMonths.size > 0 ||
-          state.clickedRings.size > 0 ||
-          state.clickedPeriods.size > 0;
-        if (hasSelections) {
-          d3.select(this).style("cursor", "pointer");
-          gCenter.selectAll(".center-label").style("opacity", 0);
-          resetText.style("opacity", 1);
-        }
-      })
-      .on("mouseout", function () {
-        // Always restore normal state on mouseout
-        d3.select(this).style("cursor", "default");
-        gCenter.selectAll(".center-label").style("opacity", 1);
-        resetText.style("opacity", 0);
-      })
-      .on("click", function () {
-        // Only clear if there are selections
-        const hasSelections = state.clickedMonths.size > 0 ||
-          state.clickedRings.size > 0 ||
-          state.clickedPeriods.size > 0;
-        if (hasSelections) {
-          state.clickedMonths.clear();
-          state.clickedRings.clear();
-          state.clickedPeriods.clear();
-          state.selectionMode = null;
-          refreshHighlights();
-        }
-      });
   }
 
   // --- 5. Render Rings (Backgrounds) ---
@@ -899,6 +851,17 @@ async function initWheel() {
   // Keep refreshPeriodHighlights as alias for backwards compatibility with hover
   function refreshPeriodHighlights() {
     refreshHighlights();
+  }
+  // --- Reset Button Handler ---
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      state.clickedMonths.clear();
+      state.clickedRings.clear();
+      state.clickedPeriods.clear();
+      state.selectionMode = null;
+      refreshHighlights();
+    });
   }
 }
 

@@ -4,7 +4,7 @@
   --bg: #f8f9fa;
   --ink: #1a1a2e;
   --muted: rgba(0, 0, 0, 0.1);
-  --muted2: rgba(0, 0, 0, 0.05);
+  --muted2: rgba(0, 0, 0, 0);
   --accent: #6c5ce7;
   --glass: rgba(255, 255, 255, 0.85);
   --shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.12);
@@ -75,6 +75,7 @@ body {
   padding: 40px;
   display: flex;
   justify-content: center;
+  gap: 20px;
 }
 
 /* Page Footer */
@@ -165,12 +166,14 @@ body {
 }
 
 /* Focus styles for keyboard navigation (WCAG) */
-.download-button:focus {
+.download-button:focus,
+.reset-button:focus {
   outline: 3px solid hsl(265, 70%, 50%);
   outline-offset: 2px;
 }
 
-.download-button:focus:not(:focus-visible) {
+.download-button:focus:not(:focus-visible),
+.reset-button:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -190,13 +193,34 @@ body {
   box-shadow: 0 2px 8px rgba(75, 37, 130, 0.3);
 }
 
+.reset-button {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: white;
+  color: hsl(265, 56%, 33%);
+  border: 1px solid hsl(265, 56%, 33%);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .download-button:hover {
   background: hsl(265, 56%, 40%);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(75, 37, 130, 0.4);
 }
 
-.download-button:active {
+.reset-button:hover {
+  background: hsl(265, 56%, 95%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.download-button:active,
+.reset-button:active {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(75, 37, 130, 0.3);
 }
