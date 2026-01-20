@@ -1,0 +1,33 @@
+# Python virtuell miljö
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+pip-log.txt
+
+# Datafiler (Excel-masterfiler hanteras separat)
+events.xlsx
+events_v2.xlsx
+
+# Backuper
+backups/
+_backups_/
+
+# macOS-filer
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE-filer
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Genererade bilder (behåll header.svg)
+*.png
+
+# Loggar
+*.log

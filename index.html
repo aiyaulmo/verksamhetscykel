@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="sv">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1" />
+  <title>Verksamhetscykel år 2026</title>
+
+  <link rel="icon"
+        href="assets/icons/favicon.ico">
+  <link rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="assets/icons/favicon-16x16.png">
+  <link rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="assets/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="assets/icons/apple-touch-icon.png">
+  <link rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="assets/icons/android-chrome-192x192.png">
+  <link rel="icon"
+        type="image/png"
+        sizes="512x512"
+        href="assets/icons/android-chrome-512x512.png">
+
+  <link rel="stylesheet"
+        href="styles/style.css">
+
+  <!-- Fullständigt D3-paket för att undvika beroendeproblem -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <!-- saveSvgAsPng för bildexport -->
+  <script src="https://cdn.jsdelivr.net/npm/save-svg-as-png@1.4.17/lib/saveSvgAsPng.min.js"></script>
+  <!-- Huvudapplikation (ES6-moduler) -->
+  <script type="module"
+          src="js/main.js"></script>
+</head>
+
+<body class="wcag-mode">
+  <!-- Visuellt dolt innehåll för skärmläsare -->
+  <div class="visually-hidden">
+    <h1>Verksamhetscykel för år 2026 – Högskolan Dalarna</h1>
+    <p>
+      Denna sida visar ett interaktivt årshjul som visualiserar Högskolan Dalarnas
+      verksamhetscykel med viktiga händelser under året. Hjulet är uppdelat i
+      månader, veckor och fyra färgkodade ringar som representerar olika
+      planeringshorisonter.
+    </p>
+    <h2>Förklaring av händelsemarkörer</h2>
+    <p>Händelserna i hjulet representeras av färgkodade symboler:</p>
+    <ul>
+      <li>Blå cirkel – Beslut</li>
+      <li>Rosa romb – Inlämning</li>
+      <li>Orange öga – Omvärldsanalys</li>
+      <li>Grön triangel – Verksamhetsdialog gemensam</li>
+      <li>Gul pentagon – Verksamhetsdialog enskild</li>
+    </ul>
+  </div>
+
+  <div class="document-card">
+    <header class="page-header"
+            role="banner">
+      <img src="assets/svg/header.svg"
+           alt="Högskolan Dalarnas verksamhetscykel - utriftrån planering till analys"
+           class="header-logo"
+           role="img">
+    </header>
+
+
+
+    <main class="wrap"
+          role="main">
+      <svg id="wheel"
+           viewBox="0 0 1000 1000"
+           role="img"
+           aria-label="Interaktivt årshjul som visar verksamhetscykeln med händelser, veckor och perioder"></svg>
+    </main>
+    <!-- Sektion för nedladdningsknappar -->
+    <div class="download-section">
+      <button id="reset-btn"
+              class="reset-button"
+              type="button"
+              aria-label="Återställ filtrering">
+        Återställ
+      </button>
+      <button id="download-btn"
+              class="download-button"
+              type="button"
+              aria-label="Ladda ner visualiseringen som PNG-bild">
+        Ladda ner som bild
+      </button>
+    </div>
+
+    <!-- Sidfot med ringförklaring -->
+    <footer class="page-footer"
+            role="contentinfo">
+      <div class="footer-left">
+        <p class="footer-description">
+          Ovanstående verksamhetscykel visualiseras i fyra färgkodade hjul.
+          Förklaring och avgränsning för varje hjul framgår i rutorna till höger.
+        </p>
+      </div>
+      <div class="footer-right">
+        <div class="ring-legend-grid">
+          <div class="ring-card ring-1">
+            <div class="ring-card-header">
+              <span class="ring-card-title">Långtidsplanering</span>
+              <span class="ring-card-time">(T + 3)</span>
+            </div>
+            <p class="ring-card-desc">säkerställer att HDa planerar för att nå strategiskamål på längre sikt</p>
+          </div>
+          <div class="ring-card ring-3">
+            <div class="ring-card-header">
+              <span class="ring-card-title">Genomförande och uppföljning</span>
+              <span class="ring-card-time">(T + 0)</span>
+            </div>
+            <p class="ring-card-desc">innevarande år, syftar till att kontinuerligt följa verksamheten och identifiera
+              åtgärdsbehov</p>
+          </div>
+          <div class="ring-card ring-2">
+            <div class="ring-card-header">
+              <span class="ring-card-title">Planering kommande år</span>
+              <span class="ring-card-time">(T + 1)</span>
+            </div>
+            <p class="ring-card-desc">syftar till att planera verksamheten för närmaste kommande år</p>
+          </div>
+          <div class="ring-card ring-4">
+            <div class="ring-card-header">
+              <span class="ring-card-title">Uppföljning och analys</span>
+              <span class="ring-card-time">(T - 1)</span>
+            </div>
+            <p class="ring-card-desc">av tidigare års utfall i syfte att ge stöd åt verksamheten att ständigt utvecklas
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Nedladdningsknapp
+    document.getElementById('download-btn').addEventListener('click', function () {
+      const svg = document.getElementById('wheel');
+      saveSvgAsPng(svg, 'verksamhetscykel.png', {
+        scale: 2,
+        backgroundColor: 'white'
+      });
+    });
+  </script>
+</body>
+
+</html>
