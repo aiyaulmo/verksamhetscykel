@@ -54,6 +54,14 @@ export const RING_MAP = {
 export const MONTHS_LIST = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
 /**
+ * Fullständiga svenska månadsnamn för visning i mitten
+ */
+export const FULL_MONTHS_LIST = [
+  "Januari", "Februari", "Mars", "April", "Maj", "Juni",
+  "Juli", "Augusti", "September", "Oktober", "November", "December"
+];
+
+/**
  * Normaliserar konfiguration genom att slå ihop med standardvärden
  * @param {Object} rawConfig - Rå konfiguration från JSON
  * @returns {Object} Normaliserad konfiguration

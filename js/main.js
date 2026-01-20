@@ -3,7 +3,7 @@
  * Orkestrerar alla moduler och initierar hjulet
  */
 
-import { loadData, getLayoutConfig, RING_MAP, RING_NAMES, RING_DISPLAY_NAMES } from './config.js';
+import { loadData, getLayoutConfig, RING_MAP, RING_NAMES, RING_DISPLAY_NAMES, FULL_MONTHS_LIST } from './config.js';
 import { createState, getFilteredEvents, resetSelections, clearHoverCycle, getActiveSets } from './state.js';
 import {
   setupSvg,
@@ -236,13 +236,34 @@ async function initWheel() {
       }
     });
 
-    // Uppdatera centertext baserat på ringhovring (om inget event är aktivt)
+    // Uppdatera centertext baserat på hovring (om inget event är aktivt)
     if (!state.clickedEvent && !state.hoveredEvent) {
-      if (state.hoveredRing !== null) {
+      if (state.hoveredPeriod !== null) {
+        // Visa periodinformation
+        const pIdx = state.hoveredPeriod;
+        const startW = config.periodDividerWeeks[pIdx];
+        const numPeriods = config.periodDividerWeeks.length;
+        const endW = config.periodDividerWeeks[(pIdx + 1) % numPeriods];
+
+        // Hantera vecka 53/1 övergång om det är aktuellt, men visa bara siffrorna
+        const weekText = `Vecka ${startW}–${endW - 1 < startW ? (config.year === 2026 ? 53 : 52) : endW - 1}`;
+
+        const periodText = `Period ${pIdx + 1}\n${weekText}`;
+        const periodFontSize = layout.centerTextFontSize * 0.85;
+        updateCenterText(layers.gCenter, periodText, layout, periodFontSize);
+
+      } else if (state.hoveredMonth !== null) {
+        // Visa fullständigt månadsnamn
+        const monthName = FULL_MONTHS_LIST[state.hoveredMonth];
+        const monthFontSize = layout.centerTextFontSize * 1.0; // Samma storlek som default
+        updateCenterText(layers.gCenter, monthName, layout, monthFontSize);
+
+      } else if (state.hoveredRing !== null) {
+        // Visa ringnamn
         const ringName = RING_DISPLAY_NAMES[state.hoveredRing];
-        // Använd något mindre storlek (85%) för ringnamnen
         const ringFontSize = layout.centerTextFontSize * 0.85;
         updateCenterText(layers.gCenter, ringName, layout, ringFontSize);
+
       } else {
         // Återställ standardtext
         updateCenterText(layers.gCenter, config.centerText, layout);
