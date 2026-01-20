@@ -245,8 +245,13 @@ async function initWheel() {
         const numPeriods = config.periodDividerWeeks.length;
         const endW = config.periodDividerWeeks[(pIdx + 1) % numPeriods];
 
-        // Hantera vecka 53/1 övergång om det är aktuellt, men visa bara siffrorna
-        const weekText = `Vecka ${startW}–${endW - 1 < startW ? (config.year === 2026 ? 53 : 52) : endW - 1}`;
+        // Hantera vecka 53/1 övergång. Om det wrappar (slutvecka < startvecka), visa slutveckan på nästa år.
+        let endWeekNum = endW - 1;
+        if (endWeekNum < 1) endWeekNum = (config.year === 2026 ? 53 : 52); // Om perioden slutar precis v 1, så är det v 52/53
+
+        // Formatera slutveckan med ledande nolla om < 10, för snyggare visning "46-03"
+        const endWeekStr = endWeekNum < 10 ? `0${endWeekNum}` : `${endWeekNum}`;
+        const weekText = `Vecka ${startW}–${endWeekStr}`;
 
         const periodName = PERIOD_NAMES[pIdx] || `Period ${pIdx + 1}`;
         const periodText = `${periodName}\n${weekText}`;
