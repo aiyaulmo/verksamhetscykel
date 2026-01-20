@@ -33,8 +33,8 @@ export const RING_NAMES = [
 export const RING_DISPLAY_NAMES = [
   "Långtids-\nplanering",
   "Planering",
-  "Genomförande &\nUppföljning",
-  "Uppföljning &\nAnalys"
+  "Genomförande &\nuppföljning",
+  "Uppföljning &\nAaalys"
 ];
 
 /**
