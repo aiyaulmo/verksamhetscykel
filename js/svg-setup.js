@@ -118,7 +118,8 @@ export function createArcGenerators(layout) {
 export function updateCenterText(gCenter, text, layout, fontSize = null) {
   // Kontrollera om texten redan visas (för att undvika onödig omritning)
   // Vi gör en enkel kontroll på första raden om den finns
-  const currentFirstLine = gCenter.select(".center-label").text();
+  const selection = gCenter.select(".center-label");
+  const currentFirstLine = selection.empty() ? "" : selection.text();
 
   // Rensa alltid för att vara säker på korrekt layout om vi inte har avancerad diffning
   gCenter.selectAll(".center-label").remove();
