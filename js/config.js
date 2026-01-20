@@ -38,6 +38,17 @@ export const RING_DISPLAY_NAMES = [
 ];
 
 /**
+ * Namn för perioderna (motsvarar ordningen i periodDividerWeeks)
+ */
+export const PERIOD_NAMES = [
+  "Period 3",
+  "Period 4",
+  "Sommar",
+  "Period 1",
+  "Period 2"
+];
+
+/**
  * Ringnamn till index
  */
 export const RING_MAP = {

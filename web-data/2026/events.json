@@ -15,11 +15,11 @@
     "weekRingThickness": 16,
     "weekSeparatorWidth": 0.75,
     "periodDividerWeeks": [
-      3,
-      13,
-      23,
-      35,
-      45
+      4,
+      14,
+      24,
+      36,
+      46
     ],
     "periodColors": [
       "hsl(265, 56%, 33%, 0.75)",

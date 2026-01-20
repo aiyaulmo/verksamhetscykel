@@ -3,7 +3,7 @@
  * Orkestrerar alla moduler och initierar hjulet
  */
 
-import { loadData, getLayoutConfig, RING_MAP, RING_NAMES, RING_DISPLAY_NAMES, FULL_MONTHS_LIST } from './config.js';
+import { loadData, getLayoutConfig, RING_MAP, RING_NAMES, RING_DISPLAY_NAMES, FULL_MONTHS_LIST, PERIOD_NAMES } from './config.js';
 import { createState, getFilteredEvents, resetSelections, clearHoverCycle, getActiveSets } from './state.js';
 import {
   setupSvg,
@@ -248,7 +248,8 @@ async function initWheel() {
         // Hantera vecka 53/1 övergång om det är aktuellt, men visa bara siffrorna
         const weekText = `Vecka ${startW}–${endW - 1 < startW ? (config.year === 2026 ? 53 : 52) : endW - 1}`;
 
-        const periodText = `Period ${pIdx + 1}\n${weekText}`;
+        const periodName = PERIOD_NAMES[pIdx] || `Period ${pIdx + 1}`;
+        const periodText = `${periodName}\n${weekText}`;
         const periodFontSize = layout.centerTextFontSize * 0.85;
         updateCenterText(layers.gCenter, periodText, layout, periodFontSize);
 
