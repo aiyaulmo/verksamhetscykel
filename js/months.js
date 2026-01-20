@@ -71,6 +71,7 @@ export function renderMonths(gMonths, gLabels, config, layout, angleScale, arcs,
       .style("font-size", `${layout.monthLabelFontSize}px`)
       .style("font-weight", "700")
       .style("text-transform", layout.monthLabelTextTransform)
+      .style("pointer-events", "none")
       .text(m);
   });
 }
