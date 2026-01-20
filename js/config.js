@@ -34,7 +34,7 @@ export const RING_DISPLAY_NAMES = [
   "Långtids-\nplanering",
   "Planering",
   "Genomförande &\nuppföljning",
-  "Uppföljning &\nAaalys"
+  "Uppföljning &\nanalys"
 ];
 
 /**
