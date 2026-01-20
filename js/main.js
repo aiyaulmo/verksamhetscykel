@@ -101,7 +101,7 @@ async function initWheel() {
     if (!ev) {
       clearHoverCycle(state);
       centerLabels.transition().duration(300).style("opacity", 1);
-      layers.gCenter.selectAll(".center-info:not(.exiting)")
+      layers.gCenter.selectAll(".center-info:not(.exiting), .center-info-foreign:not(.exiting)")
         .classed("exiting", true)
         .transition().duration(200)
         .style("opacity", 0)
