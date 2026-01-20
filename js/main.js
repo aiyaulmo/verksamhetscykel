@@ -261,7 +261,7 @@ async function initWheel() {
       } else if (state.hoveredMonth !== null) {
         // Visa fullständigt månadsnamn
         const monthName = FULL_MONTHS_LIST[state.hoveredMonth];
-        const monthFontSize = layout.centerTextFontSize * 1.0; // Samma storlek som default
+        const monthFontSize = layout.centerTextFontSize * 1.0; // Samma storlek som standard
         updateCenterText(layers.gCenter, monthName, layout, monthFontSize);
 
       } else if (state.hoveredRing !== null) {

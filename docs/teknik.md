@@ -14,7 +14,7 @@ verksamhetscykel/
 ├── data/                  # Datahantering
 │   ├── source/            # Excel-masterfiler (redigeras av användare)
 │   └── generated/         # Genererad JSON (mellansteg)
-├── scripts/               # Byggskript (Python, shell)
+├── scripts/               # Byggskript (Python, skal-skript)
 ├── docs/                  # Dokumentation
 └── backups/               # Tidsstämplade ögonblickskopior
 ```

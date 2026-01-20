@@ -11,7 +11,7 @@ Detta dokument beskriver hur verksamhetscykeln uppdateras och publiceras.
 6. Publicera projektroten enligt `docs/publicering_du_se.md`.
 
 ## Vanliga problem
-- Om scriptet misslyckas, stäng Excel (filen kan vara låst) och kör igen.
+- Om skriptet misslyckas, stäng Excel (filen kan vara låst) och kör igen.
 - Om inga ändringar syns, kontrollera att `web-data/2026/events.json` är uppdaterad.
 
 ## Arkiv

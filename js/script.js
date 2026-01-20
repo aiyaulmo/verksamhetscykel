@@ -1274,7 +1274,7 @@ async function initWheel() {
         .style("scrollbar-width", hoverInfoScrollbarWidth)
         .style("scrollbar-color", `${hoverInfoScrollbarColor} transparent`);
 
-      // Inre wrapper för att återställa textriktning
+      // Inre behållare för att återställa textriktning
       const innerDiv = div.append("xhtml:div")
         .style("direction", "ltr")  // Återställ normal textriktning
         .style("text-align", textAlign)

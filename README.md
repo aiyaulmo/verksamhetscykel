@@ -56,7 +56,7 @@ verksamhetscykel/
 ├── data/
 │   ├── source/            # Excel-masterfiler
 │   └── generated/         # Genererad JSON
-├── scripts/               # Python/shell-skript
+├── scripts/               # Python/skal-skript
 ├── docs/                  # Dokumentation
 └── backups/               # Tidsstämplade ögonblickskopior
 ```

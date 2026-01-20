@@ -146,7 +146,7 @@ function calculateElbow(ev, lineEndX, lineEndY, config, layout) {
  * @param {Object} layout - Layoutkonfiguration
  * @param {Object} state - Applikationens tillstånd
  * @param {Object} callbacks - Återanropsfunktioner
- * @returns {Array} Renderade händelser
+ * @returns {Array} Ritade händelser
  */
 export function renderEvents(layers, labelData, typeStyle, config, layout, state, callbacks) {
   const { gMarkers, gConnectors, gCenter } = layers;
