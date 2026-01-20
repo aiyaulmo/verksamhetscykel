@@ -3,14 +3,14 @@
  * Orkestrerar alla moduler och initierar hjulet
  */
 
-import { loadData, getLayoutConfig, RING_MAP, RING_NAMES } from './config.js';
+import { loadData, getLayoutConfig, RING_MAP, RING_NAMES, RING_DISPLAY_NAMES } from './config.js';
 import { createState, getFilteredEvents, resetSelections, clearHoverCycle, getActiveSets } from './state.js';
 import {
   setupSvg,
   createLayers,
   createAngleScale,
   createArcGenerators,
-  renderCenterText,
+  updateCenterText,
   renderGridCircles,
   renderRadialSeparators
 } from './svg-setup.js';
@@ -69,9 +69,10 @@ async function initWheel() {
   });
 
   // Rita statiska element
-  renderCenterText(layers.gCenter, config, layout);
   renderGridCircles(layers.gGrid, layout);
   renderRadialSeparators(layers.gGrid, layout, angleScale, year);
+  // Initial center text
+  updateCenterText(layers.gCenter, config.centerText, layout);
 
   // Rita ringar
   renderRings(layers.gRingBands, config, layout, angleScale, arcs, state, refreshHighlights);
@@ -234,6 +235,19 @@ async function initWheel() {
         }
       }
     });
+
+    // Uppdatera centertext baserat på ringhovring (om inget event är aktivt)
+    if (!state.clickedEvent && !state.hoveredEvent) {
+      if (state.hoveredRing !== null) {
+        const ringName = RING_DISPLAY_NAMES[state.hoveredRing];
+        // Använd något mindre storlek (85%) för ringnamnen
+        const ringFontSize = layout.centerTextFontSize * 0.85;
+        updateCenterText(layers.gCenter, ringName, layout, ringFontSize);
+      } else {
+        // Återställ standardtext
+        updateCenterText(layers.gCenter, config.centerText, layout);
+      }
+    }
   }
 
   // Hjälp: hämta aktiva veckor från periodindex

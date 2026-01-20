@@ -108,21 +108,52 @@ export function createArcGenerators(layout) {
  * @param {Object} config - Konfigurationsobjekt
  * @param {Object} layout - Layoutkonfiguration
  */
-export function renderCenterText(gCenter, config, layout) {
-  if (!config.centerText) return;
+/**
+ * Uppdaterar centertexten
+ * @param {d3.Selection} gCenter - Centergrupp
+ * @param {string} text - Text att visa
+ * @param {Object} layout - Layoutkonfiguration
+ * @param {number} [fontSize] - Valfri teckenstorlek (använder layout.centerTextFontSize om ej angivet)
+ */
+export function updateCenterText(gCenter, text, layout, fontSize = null) {
+  // Kontrollera om texten redan visas (för att undvika onödig omritning)
+  // Vi gör en enkel kontroll på första raden om den finns
+  const currentFirstLine = gCenter.select(".center-label").text();
 
-  const words = config.centerText.split(" & ");
-  const totalHeight = (words.length - 1) * layout.centerTextLineHeight;
+  // Rensa alltid för att vara säker på korrekt layout om vi inte har avancerad diffning
+  gCenter.selectAll(".center-label").remove();
+
+  if (!text) return;
+
+  let lines;
+  // Hantera " & " för kompatibilitet med standardtexten (t.ex. "Vision & Strategi")
+  // Om texten innehåller explicit radbrytning \n använder vi det
+  if (text.includes("\n")) {
+    lines = text.split("\n");
+  } else if (text.includes(" & ")) {
+    // För gamla "Vision & Strategi"-formatet
+    const parts = text.split(" & ");
+    lines = parts.map((p, i) => i < parts.length - 1 ? p + " &" : p);
+  } else {
+    lines = [text];
+  }
+
+  const fs = fontSize || layout.centerTextFontSize;
+  const lineHeight = layout.centerTextLineHeight;
+
+  const totalHeight = (lines.length - 1) * lineHeight;
   const startY = (-totalHeight / 2) + layout.centerTextOffsetY;
 
-  words.forEach((word, i) => {
+  lines.forEach((line, i) => {
     gCenter.append("text")
-      .attr("y", startY + i * layout.centerTextLineHeight)
+      .attr("y", startY + i * lineHeight)
       .attr("text-anchor", "middle")
       .attr("class", "center-label")
-      .style("font-size", `${layout.centerTextFontSize}px`)
+      .style("font-size", `${fs}px`)
       .style("fill", layout.centerTextColor)
-      .text(i === 0 ? word + " &" : word);
+      .style("font-weight", layout.centerTextFontWeight || "700")
+      .style("font-family", layout.centerTextFontFamily || "var(--font-display)")
+      .text(line);
   });
 }
 

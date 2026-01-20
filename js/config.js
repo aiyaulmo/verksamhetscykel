@@ -28,6 +28,16 @@ export const RING_NAMES = [
 ];
 
 /**
+ * Visningsnamn för ringar i mitten (med radbrytningar)
+ */
+export const RING_DISPLAY_NAMES = [
+  "Långtids-\nplanering",
+  "Planering",
+  "Genomförande &\nUppföljning",
+  "Uppföljning &\nAnalys"
+];
+
+/**
  * Ringnamn till index
  */
 export const RING_MAP = {
