@@ -15,11 +15,11 @@
     "weekRingThickness": 16,
     "weekSeparatorWidth": 0.75,
     "periodDividerWeeks": [
-      4,
-      14,
-      24,
-      36,
-      46
+      3,
+      13,
+      23,
+      35,
+      45
     ],
     "periodColors": [
       "hsl(265, 56%, 33%, 0.75)",
@@ -322,7 +322,7 @@
       "ring": "planering",
       "ring_2": "langtidsplanering",
       "type": "beslut",
-      "label": "Inriktnings-\nverksamhetsplan ver. 1",
+      "label": "Inriktningsverksamhetsplan ver. 1",
       "description": "Inriktningsverksamhetsplan 2027–2029 version 1. (inkluderar preliminära anslagsramar till respektive institution och till högskolegemensam verksamhet)",
       "responsible": "Beslut: Rektor\nBereds av: Avdelningen för ledningsstöd och ekonomi (S-LE)",
       "verksamhet": true,
@@ -402,7 +402,7 @@
       "id": "ev_13"
     },
     {
-      "date": "2026-05-15",
+      "date": "2026-11-20",
       "ring": "langtidsplanering",
       "ring_2": "planering",
       "type": "omvarldsanalys",
@@ -560,7 +560,7 @@
       "ring": "planering",
       "ring_2": "langtidsplanering",
       "type": "beslut",
-      "label": "Inriktnings-\nverksamhetsplan ver. 2",
+      "label": "Inriktningsverksamhetsplan ver. 2",
       "description": "Inriktningsverskamhetsplan 2027–2029 version 2. \nRevidering gjord med anledning av budgetpropositionen. Beslut inkluderar definitiva anslagsramar till respektive institution och till \nhögskolegemensam verksamhet givet att högskolestyrelsen fattar beslut den 22 oktober enligt förslag (om ekonomiska ramar 2027)",
       "responsible": "Beslut: Rektor\nBereds av: Avdelningen för ledningsstöd och ekonomi (S-LE)",
       "verksamhet": true,
